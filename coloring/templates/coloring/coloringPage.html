@@ -144,41 +144,74 @@
 			<div style = "position:absolute; left:96%; top:30%;">
 			<img src='/static/coloring/images/PenTool.png' usemap="#workmap" id = "tool" width="50" height="50">
 			<map name="workmap" id = "workmap1">
-				<area shape ="circle" coords= "0, 0, 100%, 100%" id = "pen" onclick=changeToolbar()>
-				<!-- <area shape ="circle" coords= "0, 0, 20%, 20%" id = "penclick" onclick = "">
-				<area shape ="circle" coords= "20%, 20%, 40%, 40%" id = "bucketclick" onclick = "">
-				<area shape ="circle" coords= "40%, 40%, 60%, 60%" id = "brushclick" onclick = "">
-				<area shape ="circle" coords= "60%, 60%, 80%, 80%" id = "paintclick" onclick = "">
-				<area shape ="circle" coords= "80%, 80%, 100%, 100%" id = "nextclick" onclick = ""> -->
+				<area shape ="rect" coords= "0, 0, 100%, 20%" id = "penclick" onclick = "changePen()">
+				<area shape ="rect" coords= "20%, 20%, 100%, 40%" id = "bucketclick" onclick = "changeBucket()">
+				<area shape ="rect" coords= "40%, 40%, 60%, 60%" id = "brushclick" onclick = "changeBrush()">
+				<area shape ="rect" coords= "60%, 60%, 80%, 80%" id = "paintclick" onclick = "changePalette()">
+				<area shape ="rect" coords= "80%, 80%, 100%, 100%" id = "nextclick" onclick = "changeToolbar()">
 			</map>
 		</div>
 		<script language = "javascript">
-			function changeToolbar() {
-				if (document.getElementById("tool").src == "http://localhost:8000/static/coloring/images/PenTool.png") {
-					document.getElementById("tool").remove()
-					const img = document.createElement("img")
-					img.src = '/static/coloring/images/PenToolbar.png'
-					img.height = "250"
-					img.width = "51"
-					img.style.marginLeft = "96%"
-					img.style.marginTop = "10%"
-					img.useMap = "#workmap"
-					img.id = "img"
+			function changePen() {
+				if(tool.src.match("http://localhost:8000/static/coloring/images/PenTool.png")) {
+					tool.src = '/static/coloring/images/penToolBar.png'
+					tool.height = "250"
+					tool.width = "51"
+					tool.usemap = "#workmap"
 					document.getElementById("middle-bar").appendChild(img)
-					// const 
-					// document.getElementById("tool").src = '/static/coloring/images/PenToolbar.png'
-					// document.getElementById("tool").height ="250"
-					// document.getElementById("tool").width = "51"
-					// document.getElementById("pen").onclick = ""
-					const newShape = document.createElement("newShape")
-					newShape.coords = "0, 0, 20%, 20%"
-					newShape.id = "penclick"
-					newShape.shape = "circle"
-					document.getElementById("img").onclick = penclicked()
-					
-
+					// document.getElementById("bucketclick").coords = "50%, 50%, 100%, 100%"
+				}
+				else if(tool.src.match("http://localhost:8000/static/coloring/images/bucketTool.png")) {
+					tool.src = '/static/coloring/images/bucketToolBar.png';
+					tool.height = "250"
+					tool.width = "51"
+				}
+				else {
+					tool.height = "50"
+					tool.width = "50"
+					tool.src = "http://localhost:8000/static/coloring/images/PenTool.png";
 				}
 			}
+			function changeBucket() {
+				if(tool.src.match("http://localhost:8000/static/coloring/images/PenTool.png")) {
+					tool.src = '/static/coloring/images/PenToolbar.png';
+					tool.height = "250"
+					tool.width = "51"
+				}
+				else if(tool.src.match("http://localhost:8000/static/coloring/images/bucketTool.png")) {
+					tool.src = '/static/coloring/images/bucketToolbar.png';
+					tool.height = "250"
+					tool.width = "51"
+				}
+				else {
+					tool.height = "50"
+					tool.width = "50"
+					tool.src = "http://localhost:8000/static/coloring/images/bucketTool.png";
+				}
+			}
+				// if (document.getElementById("tool").src == "http://localhost:8000/static/coloring/images/PenTool.png") {
+				// 	document.getElementById("tool").remove()
+				// 	const img = document.createElement("img")
+				// 	img.src = '/static/coloring/images/PenToolbar.png'
+				// 	img.height = "250"
+				// 	img.width = "51"
+				// 	img.style.marginLeft = "96%"
+				// 	img.style.marginTop = "10%"
+				// 	img.useMap = "#workmap"
+				// 	img.id = "img"
+				// 	document.getElementById("middle-bar").appendChild(img)
+				// 	const 
+				// 	document.getElementById("tool").src = '/static/coloring/images/PenToolbar.png'
+				// 	document.getElementById("tool").height ="250"
+				// 	document.getElementById("tool").width = "51"
+				// 	document.getElementById("pen").onclick = ""
+				// 	const newShape = document.createElement("newShape")
+				// 	newShape.coords = "0, 0, 20%, 20%"
+				// 	newShape.id = "penclick"
+				// 	newShape.shape = "circle"
+				// 	newShape.onclick = penClicked
+				// 	document.getElementById("workmap1").appendChild(newShape)
+	
 			function penClicked() {
 				document.getElementById("img").src = "http://localhost:8000/static/coloring/images/PenTool.png"
 			}
