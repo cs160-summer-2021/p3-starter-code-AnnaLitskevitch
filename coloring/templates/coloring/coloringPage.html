@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<title>P3 Coloring</title>
+
+	<script type="text/javascript" src="{% static 'coloring/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'coloring/vendors/paper/paper-full.min.js' %}"></script>
+	<style>
+
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.top-bar {
+			height: 10%;
+			background: lightgreen;
+		}
+		.middle-bar {
+			height: 75%;
+			background: white;
+		}
+		.bottom-menu {
+			height: 15%; 
+			background: lightskyblue;
+		}
+	</style>
+	<style type="text/css">
+		#color-palette {
+			width: 300px;
+			background-color: #f1f1f1;
+			display: flex;
+			flex-wrap: wrap;
+			position: absolute;
+			top: 0;
+		}
+
+		.swatch {
+			width: 24px;
+			height: 24px;
+			-moz-border-radius: 12px;
+			-webkit-border-radius: 12px;
+			border-radius: 12px;
+			margin: 3px;
+		}
+
+		#myCanvas {
+			padding-left: 0;
+		    padding-right: 0;
+		    margin-left: auto;
+		    margin-right: auto;
+		    display: block;
+		}
+	</style>
+
+	<script type="text/javascript" canvas="canvas">
+		window.onload = function() {
+			var canvas = document.getElementById('myCanvas');
+
+			// coloring page
+			var mandala = {
+				item: null,
+				lastClicked: null,
+				filePath: '/static/coloring/images/mandala-freepik.svg'
+			};
+
+			// color palette
+			var cp = {
+				history: ["#000000"], // black selected by default
+				options: [],
+				$container: $('#color-palette')
+			}
+
+			function myCustomInteraction() {
+				var tool = new paper.Tool();
+
+				tool.onMouseDown = function (event) {
+				    var hit = mandala.item.hitTest(event.point, { tolerance: 10, fill: true });
+				    if (hit) {
+				    		// Color pallette keeps track of the full history of colors, though we
+				    		// only color in with the most-recent color.
+				        hit.item.fillColor = cp.history[cp.history.length - 1];
+				    }
+				}
+			}
+
+			// create a color palette with the given colors
+			function createColorPalette(colors){
+
+				// create a swatch for each color
+				for (var i = colors.length - 1; i >= 0; i--) {
+					var $swatch = $("<div>").css("background-color", colors[i])
+									   .addClass("swatch");
+					$swatch.click(function(){
+						// add color to the color palette history
+					  	cp.history.push($(this).css("background-color"));
+					});
+					cp.$container.append($swatch);
+				}
+			}
+
+			// loads a set of colors from a json to create a color palette
+			function getColorsCreatePalette(){
+				cp.$container.html(" ");
+				$.getJSON('/static/coloring/vendors/material/material-colors.json', function(colors){
+					var keys = Object.keys(colors);
+					for (var i = keys.length - 1; i >= 0; i--) {
+						cp.options.push(colors[keys[i]][500]);
+					}
+					createColorPalette(cp.options);
+				});
+			}
+
+			function init(custom){
+				paper.setup(canvas);
+				getColorsCreatePalette();
+
+				paper.project.importSVG(mandala.filePath, function(item) {
+					mandala.item = item._children["design-freepik"];
+				    paper.project.insertLayer(0,mandala.item);
+
+				    if (custom) {
+				    	myCustomInteraction();
+				    } else {
+				    	myGradientInteraction();
+				    }
+
+				});
+			}
+
+			// Set up the mandala interactivity.
+			init(true);
+		}
+	</script>
+</head>
+<body>
+	<!-- The color of the top bar -->
+	<div class = "top-bar"></div>
+	<!-- The center -->
+	<div class= "middle-bar" id="middle-bar">
+		<!-- Dropdown menu for the tools -->
+			<div style = "position:absolute; left:96%; top:30%;">
+			<img src='/static/coloring/images/PenTool.png' usemap="#workmap" id = "tool" width="50" height="50">
+			<map name="workmap" id = "workmap1">
+				<area shape ="circle" coords= "0, 0, 100%, 100%" id = "pen" onclick=changeToolbar()>
+				<!-- <area shape ="circle" coords= "0, 0, 20%, 20%" id = "penclick" onclick = "">
+				<area shape ="circle" coords= "20%, 20%, 40%, 40%" id = "bucketclick" onclick = "">
+				<area shape ="circle" coords= "40%, 40%, 60%, 60%" id = "brushclick" onclick = "">
+				<area shape ="circle" coords= "60%, 60%, 80%, 80%" id = "paintclick" onclick = "">
+				<area shape ="circle" coords= "80%, 80%, 100%, 100%" id = "nextclick" onclick = ""> -->
+			</map>
+		</div>
+		<script language = "javascript">
+			function changeToolbar() {
+				if (document.getElementById("tool").src == "http://localhost:8000/static/coloring/images/PenTool.png") {
+					document.getElementById("tool").remove()
+					const img = document.createElement("img")
+					img.src = '/static/coloring/images/PenToolbar.png'
+					img.height = "250"
+					img.width = "51"
+					img.style.marginLeft = "96%"
+					img.style.marginTop = "10%"
+					img.useMap = "#workmap"
+					img.id = "img"
+					document.getElementById("middle-bar").appendChild(img)
+					// const 
+					// document.getElementById("tool").src = '/static/coloring/images/PenToolbar.png'
+					// document.getElementById("tool").height ="250"
+					// document.getElementById("tool").width = "51"
+					// document.getElementById("pen").onclick = ""
+					const newShape = document.createElement("newShape")
+					newShape.coords = "0, 0, 20%, 20%"
+					newShape.id = "penclick"
+					newShape.shape = "circle"
+					document.getElementById("img").onclick = penclicked()
+					
+
+				}
+			}
+			function penClicked() {
+				document.getElementById("img").src = "http://localhost:8000/static/coloring/images/PenTool.png"
+			}
+		</script>
+		<!-- <canvas id="myCanvas" width="500px" height="500px"></canvas> -->
+	</div>
+	<div class = "bottom-menu"></div>
+	<div id="color-palette"></div>
+</body>
+</html>
