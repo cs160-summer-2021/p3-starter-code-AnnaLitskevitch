@@ -9,7 +9,12 @@
 	<script type="text/javascript" src="{% static 'coloring/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'coloring/vendors/paper/paper-full.min.js' %}"></script>
 	<style>
-
+		body {
+			background-image: url('/static/coloring/images/PenTool.png');
+			background-repeat: no-repeat;
+			background-position: 97% 30%;
+			background-size: 65px;
+		}
 		html, body {
 			height: 100%;
 			margin: 0;
@@ -20,7 +25,7 @@
 		}
 		.middle-bar {
 			height: 75%;
-			background: white;
+			/* background-image: ; */
 		}
 		.bottom-menu {
 			height: 15%; 
@@ -140,8 +145,16 @@
 	<div class = "top-bar"></div>
 	<!-- The center -->
 	<div class= "middle-bar" id="middle-bar">
-		<!-- Dropdown menu for the tools -->
-			<div style = "position:absolute; left:96%; top:30%;">
+		
+		</style>
+		<div style = "position:absolute; left:96%; top:25%;">
+		<button>1</button>
+	</div>
+		<button>2</button>
+		<button>3</button>
+		<button>4</button>
+		<button>5</button>
+			<!-- <div style = "position:absolute; left:96%; top:30%;">
 			<img src='/static/coloring/images/PenTool.png' usemap="#workmap" id = "tool" width="50" height="50">
 			<map name="workmap" id = "workmap1">
 				<area shape ="rect" coords= "0, 0, 100%, 20%" id = "penclick" onclick = "changePen()">
@@ -189,33 +202,28 @@
 					tool.src = "http://localhost:8000/static/coloring/images/bucketTool.png";
 				}
 			}
-				// if (document.getElementById("tool").src == "http://localhost:8000/static/coloring/images/PenTool.png") {
-				// 	document.getElementById("tool").remove()
-				// 	const img = document.createElement("img")
-				// 	img.src = '/static/coloring/images/PenToolbar.png'
-				// 	img.height = "250"
-				// 	img.width = "51"
-				// 	img.style.marginLeft = "96%"
-				// 	img.style.marginTop = "10%"
-				// 	img.useMap = "#workmap"
-				// 	img.id = "img"
-				// 	document.getElementById("middle-bar").appendChild(img)
-				// 	const 
-				// 	document.getElementById("tool").src = '/static/coloring/images/PenToolbar.png'
-				// 	document.getElementById("tool").height ="250"
-				// 	document.getElementById("tool").width = "51"
-				// 	document.getElementById("pen").onclick = ""
-				// 	const newShape = document.createElement("newShape")
-				// 	newShape.coords = "0, 0, 20%, 20%"
-				// 	newShape.id = "penclick"
-				// 	newShape.shape = "circle"
-				// 	newShape.onclick = penClicked
-				// 	document.getElementById("workmap1").appendChild(newShape)
+			function changePalette() {
+				if(tool.src.match("http://localhost:8000/static/coloring/images/PenTool.png")) {
+					tool.src = '/static/coloring/images/PenToolbar.png';
+					tool.height = "250"
+					tool.width = "51"
+				}
+				else if(tool.src.match("http://localhost:8000/static/coloring/images/bucketTool.png")) {
+					tool.src = '/static/coloring/images/bucketToolbar.png';
+					tool.height = "250"
+					tool.width = "51"
+				}
+				else {
+					tool.height = "50"
+					tool.width = "50"
+					tool.src = "http://localhost:8000/static/coloring/images/bucketTool.png";
+				}
+			}
 	
 			function penClicked() {
 				document.getElementById("img").src = "http://localhost:8000/static/coloring/images/PenTool.png"
 			}
-		</script>
+		</script> -->
 		<!-- <canvas id="myCanvas" width="500px" height="500px"></canvas> -->
 	</div>
 	<div class = "bottom-menu"></div>
