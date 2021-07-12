@@ -9,44 +9,92 @@
 	<script type="text/javascript" src="{% static 'coloring/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'coloring/vendors/paper/paper-full.min.js' %}"></script>
 	<style>
+		#overlay {
+			position: fixed;
+			display: none;
+			max-width: 100%;
+			height: 96%;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 2;
+			cursor: pointer;
+		}
 		.button {
-			background-color: transparent;
+			position: absolute;
+			right: 2.8%;
+			background-color: red;
 			border: red;
 			color: red;
-			border-radius: 200px;
+			border-radius: 100px;
 			width: 65px;
 			height: 65px;
+			max-width: 100%;
+		}
+		.button1{
+			top: 27%;
+		}
+		.button2{
+			top: calc(27% + 65px);
+		}
+		.button3{
+			top: calc(27% + 130px);
+		}
+		.button4{
+			top:calc(27% + 195px);
 		}
 		body {
+			position: absolute;
 			background-image: url('/static/coloring/images/penTool.png');
 			background-repeat: no-repeat;
-
+			width: 100%;
+			max-width: 100%;
 			/* background-position: 97.3% 58%;
 			background-size: 73px; */
 			background-position: 97% 30%;
 			/* single tab  */
 			background-size: 65px; 
+			padding: 0;
+			margin: 0;
 		}
 		html, body {
 			height: 100%;
-			margin: 0;
+			width: 100%;
+			max-width: 100%;
+			overflow-x: hidden;
 		}
 		.top-bar {
 			height: 10%;
 			background: lightgreen;
+			width: 100%;
+			max-width: 100%;
+			padding: 0;
+			margin: 0;
 		}
 		.middle-bar {
 			height: 75%;
+			max-width: 100%;
+			width: 100%;
 			/* background-image: ; */
+			padding: 0;
+			margin: 0;
 		}
 		.bottom-menu {
 			height: 15%; 
+			max-width: 100%;
+			width: 100%;
 			background: lightskyblue;
+			padding: 0;
+			margin: 0;
 		}
 	</style>
 	<style type="text/css">
 		#color-palette {
-			width: 300px;
+			width: 50%;
+			height: 40%;
+			max-width: 100%;
 			background-color: #f1f1f1;
 			display: flex;
 			flex-wrap: wrap;
@@ -56,6 +104,7 @@
 
 		.swatch {
 			width: 24px;
+			max-width: 100%;
 			height: 24px;
 			-moz-border-radius: 12px;
 			-webkit-border-radius: 12px;
@@ -64,6 +113,7 @@
 		}
 
 		#myCanvas {
+			max-width: 100%;
 			padding-left: 0;
 		    padding-right: 0;
 		    margin-left: auto;
@@ -112,6 +162,7 @@
 									   .addClass("swatch");
 					$swatch.click(function(){
 						// add color to the color palette history
+						document.getElementById("overlay").style.display = "none";
 					  	cp.history.push($(this).css("background-color"));
 					});
 					cp.$container.append($swatch);
@@ -154,19 +205,18 @@
 </head>
 <body>
 	<!-- The color of the top bar -->
-	<div class = "top-bar"></div>
+	<div class = "top-bar" max-width = 100%></div>
 	<!-- The center -->
-	<div class= "middle-bar" id="middle-bar">
+	<div class= "middle-bar" id="middle-bar" max-width= 100%;>
 		
 		</style>
-		<div style = "position:relative; left:92.1%; top:22.4%;">
-			<button class ="button" onclick = buttonOne()></button>
-		</div>
-		<div style = "position:relative; left:92.1%; top:21%;">
-			<button class ="button" onclick = buttonTwo()></button>
+			<button class ="button button1" onclick = buttonOne()></button>
+			<button class ="button button2" onclick = buttonTwo()></button>
+		<div id ="overlay">
+			<div id="color-palette"></div>
 		</div>
 		<button>3</button>
-		<button>4</button>
+		<button class = "button button4" onclick = buttonFour()>4</button>
 		<button>5</button>
 
 		<script language = "javascript">
@@ -174,17 +224,19 @@
 			body.style.backgroundImage = 'url(/static/coloring/images/penTool.png)'
 			body.style.backgroundPosition = "97% 30%";
 			body.style.backgroundSize = "65px";
+			var prev = "pen";
 			function buttonOne() {
 				//For just pen
 				if (body.style.backgroundSize == "65px") {
 					body.style.backgroundImage = 'url(/static/coloring/images/penToolBar.png)'
-					body.style.backgroundPosition = "97.3% 60%";
+					body.style.backgroundPositionX =  "97.5%"
+					body.style.backgroundPositionY = "50%"
 					body.style.backgroundSize = "73px";
 				}
 				//For just bucket
 				else if (body.style.backgroundSize == "65.1px") {
 					body.style.backgroundImage = 'url(/static/coloring/images/bucketToolBar.png)'
-					body.style.backgroundPosition = "97.3% 60%";
+					body.style.backgroundPosition = "97.3% 53%";
 					body.style.backgroundSize = "73px";
 				}
 				//For toolbar
@@ -192,90 +244,25 @@
 					body.style.backgroundImage = 'url(/static/coloring/images/penTool.png)'
 					body.style.backgroundPosition = "97% 30%";
 					body.style.backgroundSize = "65px";
+					prev = "pen";
 				}
 			}
-				//for toolbar
+				//for toolbar bucket
 			function buttonTwo() {
 				if (body.style.backgroundSize == "73px") {
 					body.style.backgroundImage = 'url(/static/coloring/images/bucketTool.png)'
 					body.style.backgroundPosition = "97% 30%";
 					body.style.backgroundSize = "65.1px";
+					prev = "bucket";
+				}
+			}
+			function buttonFour() {
+				document.getElementById("overlay").style.display = "block";
+				if (body.style.backgroundSize == "73px") {
 				}
 			}
 		</script>
-			<!-- <div style = "position:absolute; left:96%; top:30%;">
-			<img src='/static/coloring/images/PenTool.png' usemap="#workmap" id = "tool" width="50" height="50">
-			<map name="workmap" id = "workmap1">
-				<area shape ="rect" coords= "0, 0, 100%, 20%" id = "penclick" onclick = "changePen()">
-				<area shape ="rect" coords= "20%, 20%, 100%, 40%" id = "bucketclick" onclick = "changeBucket()">
-				<area shape ="rect" coords= "40%, 40%, 60%, 60%" id = "brushclick" onclick = "changeBrush()">
-				<area shape ="rect" coords= "60%, 60%, 80%, 80%" id = "paintclick" onclick = "changePalette()">
-				<area shape ="rect" coords= "80%, 80%, 100%, 100%" id = "nextclick" onclick = "changeToolbar()">
-			</map>
-		</div>
-		<script language = "javascript">
-			function changePen() {
-				if(tool.src.match("http://localhost:8000/static/coloring/images/PenTool.png")) {
-					tool.src = '/static/coloring/images/penToolBar.png'
-					tool.height = "250"
-					tool.width = "51"
-					tool.usemap = "#workmap"
-					document.getElementById("middle-bar").appendChild(img)
-					// document.getElementById("bucketclick").coords = "50%, 50%, 100%, 100%"
-				}
-				else if(tool.src.match("http://localhost:8000/static/coloring/images/bucketTool.png")) {
-					tool.src = '/static/coloring/images/bucketToolBar.png';
-					tool.height = "250"
-					tool.width = "51"
-				}
-				else {
-					tool.height = "50"
-					tool.width = "50"
-					tool.src = "http://localhost:8000/static/coloring/images/PenTool.png";
-				}
-			}
-			function changeBucket() {
-				if(tool.src.match("http://localhost:8000/static/coloring/images/PenTool.png")) {
-					tool.src = '/static/coloring/images/PenToolbar.png';
-					tool.height = "250"
-					tool.width = "51"
-				}
-				else if(tool.src.match("http://localhost:8000/static/coloring/images/bucketTool.png")) {
-					tool.src = '/static/coloring/images/bucketToolbar.png';
-					tool.height = "250"
-					tool.width = "51"
-				}
-				else {
-					tool.height = "50"
-					tool.width = "50"
-					tool.src = "http://localhost:8000/static/coloring/images/bucketTool.png";
-				}
-			}
-			function changePalette() {
-				if(tool.src.match("http://localhost:8000/static/coloring/images/PenTool.png")) {
-					tool.src = '/static/coloring/images/PenToolbar.png';
-					tool.height = "250"
-					tool.width = "51"
-				}
-				else if(tool.src.match("http://localhost:8000/static/coloring/images/bucketTool.png")) {
-					tool.src = '/static/coloring/images/bucketToolbar.png';
-					tool.height = "250"
-					tool.width = "51"
-				}
-				else {
-					tool.height = "50"
-					tool.width = "50"
-					tool.src = "http://localhost:8000/static/coloring/images/bucketTool.png";
-				}
-			}
-	
-			function penClicked() {
-				document.getElementById("img").src = "http://localhost:8000/static/coloring/images/PenTool.png"
-			}
-		</script> -->
-		<!-- <canvas id="myCanvas" width="500px" height="500px"></canvas> -->
 	</div>
 	<div class = "bottom-menu"></div>
-	<div id="color-palette"></div>
 </body>
 </html>
