@@ -40,7 +40,7 @@
     }
     #choose {
         font-family: Ubuntu;
-        font-style: bold;
+        font-weight: bold;
         font-size: 3vh;
         margin-top: 3vh;
         margin-left: 2vh;
@@ -61,11 +61,43 @@
 
     }
     .background1 {
-        background-image: url('/static/coloring/images/cat1.jpeg');
+        background-image: url('/static/coloring/images/mandala.png');
         background-size:cover;
     }
     .background2 {
-        background-image: url('/static/coloring/images/fill1.jpeg');
+        background-image: url('/static/coloring/images/fill2.jpeg');
+        background-size:cover;
+    }
+    .background3 {
+        background-image: url('/static/coloring/images/fill3.jpeg');
+        background-size:cover;
+    }
+    .background4 {
+        background-image: url('/static/coloring/images/fill4.jpeg');
+        background-size:cover;
+    }
+    .background5 {
+        background-image: url('/static/coloring/images/fill5.jpeg');
+        background-size:cover;
+    }
+    .background6 {
+        background-image: url('/static/coloring/images/fill6.png');
+        background-size:cover;
+    }
+    .background7 {
+        background-image: url('/static/coloring/images/fill5.png');
+        background-size:cover;
+    }
+    .background8 {
+        background-image: url('/static/coloring/images/fill8.jpeg');
+        background-size:cover;
+    }
+    .background9 {
+        background-image: url('/static/coloring/images/fill9.jpeg');
+        background-size:cover;
+    }
+    .background10 {
+        background-image: url('/static/coloring/images/cat10.jpeg');
         background-size:cover;
     }
     .search-bar-wrapper {
@@ -115,6 +147,11 @@
         margin: 0 auto;
     }
 
+    #homebutton {
+        color: white;
+        background-color: rgb(167, 167, 167);
+    }
+
     </style>
 
 </head>
@@ -141,20 +178,20 @@
             <div class="col 12 col-xs-6 background background2"></div>
         </div>
         <div class="row">
-            <div class="col 12 col-xs-6 background background1"></div>
-            <div class="col 12 col-xs-6 background background2"></div>
+            <div class="col 12 col-xs-6 background background3"></div>
+            <div class="col 12 col-xs-6 background background4"></div>
         </div>
         <div class="row">
-            <div class="col 12 col-xs-6 background background1"></div>
-            <div class="col 12 col-xs-6 background background2"></div>
+            <div class="col 12 col-xs-6 background background5"></div>
+            <div class="col 12 col-xs-6 background background6"></div>
         </div>
         <div class="row">
-            <div class="col 12 col-xs-6 background background1"></div>
-            <div class="col 12 col-xs-6 background background2"></div>
+            <div class="col 12 col-xs-6 background background7"></div>
+            <div class="col 12 col-xs-6 background background8"></div>
         </div>
         <div class="row">
-            <div class="col 12 col-xs-6 background background1"></div>
-            <div class="col 12 col-xs-6 background background2"></div>
+            <div class="col 12 col-xs-6 background background9"></div>
+            <div class="col 12 col-xs-6 background background10"></div>
         </div>
         
     
@@ -195,6 +232,9 @@
             });
             $('#settingsbutton').click(function() {
                 window.location = "http://localhost:8000/coloring/settings/";
+            });
+            $('.background1').click(function() {
+                window.location = "http://localhost:8000/coloring/coloringPage/";
             });
             
 

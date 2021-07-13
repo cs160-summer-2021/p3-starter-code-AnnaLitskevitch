@@ -9,5 +9,6 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('cattemplate/', views.cattemplate, name='cattemplate'),
     path('saved/', views.saved, name='saved'),
-    path('settings/', views.settings, name='settings')
+    path('settings/', views.settings, name='settings'),
+    path('catdrawing/', views.catdrawing, name='catdrawing')
 ]

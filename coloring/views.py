@@ -26,3 +26,6 @@ def saved(request):
 
 def settings(request):
     return render(request, 'coloring/settings.html')
+
+def catdrawing(request):
+    return render(request, 'coloring/catdrawing.html')

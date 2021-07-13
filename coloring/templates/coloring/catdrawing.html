@@ -26,16 +26,6 @@
             left: 5px;
 
         }
-		.buttons {
-        	display: flex;
-        	justify-content: space-between;
-        	position:fixed;
-        	bottom: 10px;
-        	width: 400px;
-        	margin: 0 auto;
-        	left: calc(50% - 200px);
-
-    	}
         #undobutton {
             /* left: calc(100% - 40px); */
             left: calc(100% - 215px);
@@ -332,27 +322,6 @@
 		<canvas id="myCanvas" width="750px" height="750px">
 		</canvas>
 	</div>
-	<div class = "bottom-menu">
-		<div class="buttons">
-			<div class="button" id="homebutton">Home</div>
-			<div class="button" id="savedbutton">Saved</div>
-			<div class="button" id="settingsbutton">Settings</div>
-		</div>
-	</div>
-
-	<script>
-		// your solution here
-        $(document).ready(function(){
-			$('#homebutton').click(function() {
-                window.location = "http://localhost:8000/coloring/home/";
-            });
-            $('#savedbutton').click(function() {
-                window.location = "http://localhost:8000/coloring/saved/";
-            });
-            $('#settingsbutton').click(function() {
-                window.location = "http://localhost:8000/coloring/settings/";
-            });
-		});
-	</script>
+	<div class = "bottom-menu"></div>
 </body>
 </html>
