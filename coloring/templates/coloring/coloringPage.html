@@ -195,35 +195,57 @@
 		<map name="workmap">
 			<area shape ="rect" coords="0, 0, 100%, 50px" onclick = buttonOne()>
 			<area shape ="rect" coords="0, 50px, 100%, 100px" onclick = buttonTwo()>
-			<area shape ="rect" coords="0, 100px, 100%, 150px" onclick = buttonThree()>
+			<area shape ="rect" coords="0, 100px, 100%, 150px">
 			<area shape ="rect" coords="0, 150px, 100%, 200px" onclick = buttonFour()>
 			<area shape ="rect" coords="0, 200px, 100%, 250px" onclick = buttonFive()>
 		</map>
-		<p id="temp">hi</p>
 		<script type = "text/javascript">
 			var prev = '/static/coloring/images/penTool.png';
 			var tool = document.getElementById('tools');
 			function buttonOne() {
 				//For just pen
-				if (tools.src == "http://localhost:8000/static/coloring/images/penTool.png") {
-					tools.src = '/static/coloring/images/penToolBar.png'
+				if (tool.src == "http://localhost:8000/static/coloring/images/penTool.png") {
+					tool.src = '/static/coloring/images/penToolBar.png'
+					tool.style.width= "60px";
+					tool.style.right ="2%";
 				}
 				//For just bucket
-				else if (tools.src == "http://localhost:8000/static/coloring/images/BucketTool.png") {
-					tools.src = '/static/coloring/images/bucketToolBar.png'
+				else if (tool.src == "http://localhost:8000/static/coloring/images/BucketTool.png") {
+					tool.src = '/static/coloring/images/bucketToolBar.png'
+					tool.style.width= "60px";
+					tool.style.right ="2%";
+				}
+				//For just eraser
+				else if (tool.src == "http://localhost:8000/static/coloring/images/eraserTool.png"){
+					tool.src = '/static/coloring/images/eraserToolBar.png'
+					tool.style.width = "140px"
+					tool.style.right = "-2%"
 				}
 				//For toolbar
-				else if (tools.src == "http://localhost:8000/static/coloring/images/bucketToolBar.png" ||
-				tools.src == "http://localhost:8000/static/coloring/images/penToolBar.png"){
-					tools.src = '/static/coloring/images/penTool.png'
+				else if (tool.src == "http://localhost:8000/static/coloring/images/bucketToolBar.png" ||
+				tool.src == "http://localhost:8000/static/coloring/images/penToolBar.png" ||
+				tool.src == "http://localhost:8000/static/coloring/images/emptyToolBar.png"){
+					tool.src = '/static/coloring/images/penTool.png'
 					prev = '/static/coloring/images/penTool.png';
+					tool.style.width= "60px";
+					tool.style.right ="2%";
 				}
-				else if (tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png") {
+				else if (tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png" || 
+				tools.src == "http://localhost:8000/static/coloring/images/eraserToolBar.png") {
 					if (prev == "/static/coloring/images/penTool.png") {
 						tools.src = '/static/coloring/images/penToolBar.png'
+						tool.style.width= "60px";
+						tool.style.right ="2%";
+					}
+					else if (prev == '/static/coloring/images/eraserTool.png') {
+						tools.src = '/static/coloring/images/emptyToolBar.png'
+						tool.style.width= "60px";
+						tool.style.right ="2%";
 					}
 					else {
 						tools.src = '/static/coloring/images/bucketToolBar.png'
+						tool.style.width= "60px";
+						tool.style.right ="2%";
 					}
 				}
 			}
@@ -231,10 +253,13 @@
 			function buttonTwo() {
 				if (tools.src == "http://localhost:8000/static/coloring/images/bucketToolBar.png" ||
 				tools.src == "http://localhost:8000/static/coloring/images/penToolBar.png" || 
-				tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png"){
+				tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png" ||
+				tools.src == "http://localhost:8000/static/coloring/images/eraserToolBar.png"){
 					tools.src = '/static/coloring/images/BucketTool.png'
 					prev = '/static/coloring/images/BucketTool.png';
 				}
+				tool.style.width= "60px";
+				tool.style.right ="2%";
 			}
 			function buttonFour() {
 				if (tools.src == "http://localhost:8000/static/coloring/images/bucketToolBar.png" ||
@@ -242,17 +267,23 @@
 				tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png"){
 					document.getElementById("overlay").style.display = "block";
 					tools.src = prev;
+					tool.style.width = "60px"
+					tool.style.right = "2%"
 				}
 			}
 			function buttonFive() {
-				document.getElementById("temp").textContent = ":D";
 				if (tools.src == "http://localhost:8000/static/coloring/images/bucketToolBar.png" ||
-				tools.src == "http://localhost:8000/static/coloring/images/penToolBar.png") {
+					tools.src == "http://localhost:8000/static/coloring/images/penToolBar.png") {
 					tools.src = '/static/coloring/images/toolsPart2.png'
 				}
-				else if (tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png") {
+				else if (tools.src == "http://localhost:8000/static/coloring/images/toolsPart2.png" || 
+				tools.src == "http://localhost:8000/static/coloring/images/eraserToolBar.png") {
 					window.v1();
+					tools.src = '/static/coloring/images/eraserTool.png'
+					prev = '/static/coloring/images/eraserTool.png';
 				}
+				tool.style.width= "60px";
+				tool.style.right ="2%";
 			}
 		</script>
 		<div id ="overlay">
