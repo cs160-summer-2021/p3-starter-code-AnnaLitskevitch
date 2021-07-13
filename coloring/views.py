@@ -11,3 +11,18 @@ def new_interaction(request):
 
 def coloringPage(request):
     return render(request, 'coloring/coloringPage.html')
+
+def welcomepage(request):
+    return render(request, 'coloring/welcomepage.html')
+
+def home(request):
+    return render(request, 'coloring/home.html')
+
+def cattemplate(request):
+    return render(request, 'coloring/cattemplate.html')
+
+def saved(request):
+    return render(request, 'coloring/saved.html')
+
+def settings(request):
+    return render(request, 'coloring/settings.html')

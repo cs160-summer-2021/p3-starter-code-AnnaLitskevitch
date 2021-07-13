@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<title>P3 Coloring</title>
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Salsa" />
+
+	<style type="text/css">
+    body {
+        background-image: url('/static/coloring/images/gradient.png');
+        background-size: 100vw 100vh;
+    }
+    .welcome {
+        font-size: 5vh;
+        text-align: center;
+        font-family: Ubuntu;
+        color: white;
+        font-weight: bold;
+        position: relative;
+        top: 20vh;
+    }
+    .tapanywhere {
+        font-size: 2.5vh;
+        text-align: center;
+        font-family: Salsa;
+        color: white;
+        position: relative;
+        top: 50vh;
+    }
+    #tap {
+        height: 15vh;
+        width: 15vh;
+        position: relative;
+        top: 60vh;
+    }
+    </style>
+</head>
+<body>
+    <div class="welcome">Welcome to Drawable!</div>
+    <div class="tapanywhere">Tap anywhere to start...</div>
+    <img class="center" id="tap" src="/static/coloring/images/touchwhite.png" alt="tap icon">
+</body>
+</html>
+
+<!-- https://stackoverflow.com/questions/20818568/how-to-add-ubuntu-font-family-to-my-site-using-css -->

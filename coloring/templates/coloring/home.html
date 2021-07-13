@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<title>Home</title>
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Salsa" />
+      <link rel="stylesheet" type="text/css" href="{% static 'coloring/vendors/bootstrap/css/bootstrap.css' %}" />
+      <script type="text/javascript" src="{% static 'coloring/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'coloring/vendors/paper/paper-full.min.js' %}"></script>
+
+	<style type="text/css">
+    body {
+    display: inline;
+    }
+    .top-banner {
+        background-color: aliceblue;
+        background-image: url('/static/coloring/images/banner.png');
+        background-size: 100vw 10vh;
+        width: 100vw;
+        height: 10vh;
+        /* position: absolute;
+        right: 0;
+        top: 0; */
+    }
+    #choose {
+        width: 90vw;
+        height: 10vh;
+        position: relative;
+    }
+    #search-icon {
+        align-items:flex-end;
+        margin-right: 2vh;
+        cursor: pointer;
+    }
+    #id {
+        width: 100vw;
+    }
+    #choose {
+        font-family: Ubuntu;
+        font-style: bold;
+        font-size: 3vh;
+        margin-top: 3vh;
+        margin-left: 2vh;
+    }
+    .background {
+        background-color: rgb(75, 69, 69);
+        margin:5vw; 
+        /* padding:5px; */
+        /* background-image: url('/static/coloring/images/cat1.jpeg'); */
+        /* padding: 10vh; */
+        height: 70vw;
+        width: 50vw;
+        border-style: solid;
+        border-color: gray;
+        border-width: 1vh;
+        display: none;
+        cursor: pointer;
+
+    }
+    .background1 {
+        background-image: url('/static/coloring/images/cat1.jpeg');
+        background-size:cover;
+    }
+    .background2 {
+        background-image: url('/static/coloring/images/fill1.jpeg');
+        background-size:cover;
+    }
+    .search-bar-wrapper {
+        display: none;
+        height: 70px;
+    }
+    #searchbar {
+        height: 70px;
+        border-radius: 35px;
+        width: 40vw;
+        font-size: 20px;
+    }
+    #hidden {
+        display: none;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        position:fixed;
+        bottom: 10px;
+        width: 400px;
+        margin: 0 auto;
+        left: calc(50% - 200px);
+
+    }
+    .button {
+        background-color: white;
+        border: solid;
+        border-color: black;
+        color: black;
+        font-family: Salsa;
+        font-size: 20px;
+        border-width: 3px;
+        border-radius: 10px;
+        height: 40px;
+        width: 100px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .button:hover{
+     background: rgb(167, 167, 167);
+    }
+
+    .load-more {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+    </style>
+
+</head>
+<body>
+    <div class="top-banner">
+        <!-- <img id="tap" src="/static/coloring/images/banner.png" alt="search icon"> -->
+    </div>
+    <div class="container-flex">
+        <div class="row">
+            <div id="choose" class="col 12 col-xs-11">Choose a Template!</div>
+            <div id="search-icon" class="col 12 col-xs-1">
+                <br>
+                <img class="float-right" id="searchicon" src="/static/coloring/images/search.png" alt="search icon"
+                width="100" height="70">
+                <div class="search-bar-wrapper float-right">
+                    <input id="searchbar" type="text" placeholder=" Search Templates" name="search">
+                    
+                    <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col 12 col-xs-6 background background1"></div>
+            <div class="col 12 col-xs-6 background background2"></div>
+        </div>
+        <div class="row">
+            <div class="col 12 col-xs-6 background background1"></div>
+            <div class="col 12 col-xs-6 background background2"></div>
+        </div>
+        <div class="row">
+            <div class="col 12 col-xs-6 background background1"></div>
+            <div class="col 12 col-xs-6 background background2"></div>
+        </div>
+        <div class="row">
+            <div class="col 12 col-xs-6 background background1"></div>
+            <div class="col 12 col-xs-6 background background2"></div>
+        </div>
+        <div class="row">
+            <div class="col 12 col-xs-6 background background1"></div>
+            <div class="col 12 col-xs-6 background background2"></div>
+        </div>
+        
+    
+    </div>
+    <div class="button load-more">Load more</div>
+    <br><br><br><br>
+    <div class="buttons">
+        <div class="button" id="homebutton">Home</div>
+        <div class="button" id="savedbutton">Saved</div>
+        <div class="button" id="settingsbutton">Settings</div>
+    </div>
+    <script>
+        // your solution here
+        $(document).ready(function(){
+            $(".background").slice(0, 4).show();
+            $(".load-more").click(function() {
+                if($("div:hidden").length == 0){ 
+                    alert("No more templates left to load!");
+                }
+                $(".background:hidden").slice(0,4).show();
+                return false;
+            });
+            $("#searchicon").click(function() {
+                $(".search-bar-wrapper").show();
+                $("#searchicon").hide();
+
+            });
+            $('#searchbar').keypress(function(e){
+                if(e.keyCode==13) {
+                    window.location = "http://localhost:8000/coloring/cattemplate";    
+                }
+            });
+            $('#homebutton').click(function() {
+                window.location = "http://localhost:8000/coloring/home/";
+            });
+            $('#savedbutton').click(function() {
+                window.location = "http://localhost:8000/coloring/saved/";
+            });
+            $('#settingsbutton').click(function() {
+                window.location = "http://localhost:8000/coloring/settings/";
+            });
+            
+
+        });
+    </script>
+</body>
+</html>
